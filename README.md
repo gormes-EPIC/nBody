@@ -148,7 +148,7 @@ Tutorials
 - [Headspin](https://www.headspin.io/blog/junit-a-complete-guide)
 ## Deliverables
 - 2 classes, *Planet.java* and *NBody.java*, as described above
-- A class, *NBodyTest.java,* to implement at least 5 JUnit Tests
+- A class or a few classes to implement at least 5 JUnit Tests
 - A Javadoc generated API in an .HTML file
 
 #### Sources

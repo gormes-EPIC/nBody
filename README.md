@@ -18,12 +18,14 @@ The input format for the planets is a text file that contains the information fo
 - The first value is an integer _n_ which represents the number of particles. The second value is a real number _radius_ which represents the radius of the universe; it is used to determine the scaling of the drawing window (which displays particles with _x_- and _y_-coordinates between −*radius* and +_radius_).
 - Next, there are _n_ lines (one for each particle), with each line containing 6 values. The first two values are the _x_- and _y_-coordinates of the initial position; the next pair of values are the _x_- and _y_-components of the initial velocity; the fifth value is the mass; the last value is a String that is the name of an image file used to display the particle.
 - As an example, *planets.txt* contains real data from part of our Solar System.
-  ![[Pasted image 20230821182602.png]]
+![Pasted image 20230821182602](https://github.com/gormes-EPIC/nBody/assets/134316348/1450ab25-cc68-4da8-84bb-31fe3f2d625a)
+
 ## Approach
 ### Simulating the universe: the physics
 We review the equations governing the motion of the particles, according to Newton's laws of motion and gravitation. Don't worry if your physics is a bit rusty; all of the necessary formulas are included below.  The position (_px, py_) and velocity (_vx, vy_) of each particle is known (initial values are in the text file). In order to model the dynamics of the system, we must find the **net force** exerted on each particle.
 - **Pairwise force.** _Newton's law of universal gravitation_ asserts that the strength of the gravitational force between **two particles** is given by the product of their masses divided by the square of the distance between them, scaled by the gravitational constant _G_ (6.67 × 10−11 N·m2·kg−2). The pull of one particle towards another acts on the line between them. Since we are using Cartesian coordinates to represent the position of a particle, it is convenient to break up the force into its _x_- and _y_-components (_Fx, Fy_) as illustrated below.
-  ![[Pasted image 20230821182636.png]]
+![Pasted image 20230821182612](https://github.com/gormes-EPIC/nBody/assets/134316348/56942c18-eb7f-456e-afe7-f0df111d8192)
+
 - **Net force.** The _principle of superposition_ says that the net force acting on a particle in the _x_- or _y_-direction is **the sum of the pairwise forces** acting on the particle in that direction.
 - **Acceleration.** _Newton's second law of motion_ postulates that the accelerations in the _x_- and _y_-directions are given by: **_ax = Fx / m, ay = Fy / m_.**
 - **Simulating the universe: the numerics.**  We use the _leapfrog finite difference approximation scheme_ to numerically integrate the above equations: this is the basis for most astrophysical simulations of gravitational systems. In the leapfrog scheme, we discretize time, and update the time variable _t_ in increments of the _time quantum_ Δ_t_ (measured in seconds). We maintain the position (_px_, _py_) and velocity (_vx_, _vy_) of each particle at each time step. The steps below illustrate how to evolve the positions and velocities of the particles.
